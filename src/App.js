@@ -1,23 +1,41 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import allFoods from './foods.json';
+import FoodBox from './components/FoodBox';
+import AddFoodForm from './components/AddFoodForm';
+import Search from './components/Search';
 
 function App() {
+  const [foods, setFoods] = useState(allFoods);
+
+  const añadirComida = (newComida) => {
+    setFoods([...foods, newComida]);
+  };
+
+  const [filteredFoods, setFilteredFood] = useState([]);
+
+  const searchFood = (search) => {
+    let filteredArr = foods.filter((eachFood) => {
+      if (eachFood.name.includes(search)) {
+        return true; //agrega el elemento
+      } else {
+        return false; //no agregues el elemento
+      }
+    });
+
+    setFilteredFood(filteredArr);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AddFoodForm comiditaNueva={añadirComida} />
+      <Search searchFood={searchFood} />
+
+      {foods.map((eachFood, index) => (
+        <div key={index}>
+          <FoodBox food={eachFood} />
+        </div>
+      ))}
     </div>
   );
 }
