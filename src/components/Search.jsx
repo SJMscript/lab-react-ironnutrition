@@ -1,32 +1,31 @@
-import { useState } from "react"
+import { useState } from 'react';
 import { Divider, Input } from 'antd';
 
 function Search(props) {
+  const [searchInput, setSearchInput] = useState('');
 
-    const [searchInput, setSearchInput] = useState("")
+  const handleSearchChange = (event) => {
+    setSearchInput(event.target.value);
 
-    const handleSearchChange = (event) => {
-       
-        setSearchInput(event.target.value)
-            
-        props.searchFood(event.target.value)
-      
-    }
+    props.searchFood(event.target.value);
+  };
 
   return (
     <>
-    
-    <Divider>Search</Divider>
+      <Divider>Search</Divider>
 
       <label>Search</label>
-      <Input type="text" name="search" value={searchInput} onChange={handleSearchChange} />
+      <Input
+        type="text"
+        name="search"
+        value={searchInput}
+        onChange={handleSearchChange}
+      />
     </>
-    
-  )
+  );
 }
 
-export default Search
-
+export default Search;
 
 /* import { useState } from "react"
 
